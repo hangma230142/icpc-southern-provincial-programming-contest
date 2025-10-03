@@ -1,47 +1,38 @@
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <algorithm>
-#include <climits>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-void solve() {
-    long long A, B, C, D;
-    if (!(cin >> A >> B >> C >> D)) return;
-
-    vector<long long> divisors;
-    long long limit = sqrt(C);
-    for (long long i = 1; i <= limit; ++i) {
-        if (C % i == 0) {
-            divisors.push_back(i);
-            if (i * i != C) {
-                divisors.push_back(C / i);
-            }
-        }
-    }
-
-    long long n_min = -1;
-    for (long long n : divisors) {
-        bool cond1 = (n % A == 0);
-        bool cond2 = (n % B != 0);
-        bool cond4 = (D % n != 0);
-
-        if (cond1 && cond2 && cond4) {
-            if (n_min == -1 || n < n_min) {
-                n_min = n;
-            }
-        }
-    }
-
-    cout << n_min << endl;
-}
+#define fast_io ios::sync_with_stdio(false);cin.tie(0);
+typedef long long ll;
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+    fast_io
+    ll n; int k;
+    cin >> n >> k;
 
-    solve();
+    if (k == 1) {
+        if (n < 10) cout << n << endl;
+        else cout << -1 << endl;
+        return 0;
+    }
+
+    vector<int> digits;
+    ll nn = n;
+    for (int d = 9; d >= 2; --d) {
+        while (nn % d == 0 && digits.size() < k) {
+            nn /= d;
+            digits.push_back(d);
+        }
+    }
+
+    if (nn > 1 || digits.size() > k) {
+        cout << -1 << endl;
+        return 0;
+    }
+
+    while (digits.size() < k) digits.push_back(1);
+    sort(digits.begin(), digits.end());
+    for (int d : digits) cout << d;
+    cout << endl;
 
     return 0;
 }
