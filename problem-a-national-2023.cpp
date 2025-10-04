@@ -1,12 +1,10 @@
-#define _USE_MATH_DEFINES
-#include <bits/stdc++.h>
-
+#include <iostream>
 using namespace std;
 
 void solve() {
-    int T;
-    cin >> T;
-    while (T--) {
+    int t;
+    cin >> t;
+    while (t--) {
         int a, b, c;
         cin >> a >> b >> c;
         if (c == 0) {
